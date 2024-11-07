@@ -31,9 +31,11 @@ docker compose up -d
 ## Run on the local environment
 
 1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/dwisulfahnur/caching-service.git
-   cd yourproject
+
+```bash
+git clone https://github.com/dwisulfahnur/caching-service.git
+cd caching-service
+```
 
 2. **Install Dependencies: Use pip to install project dependencies.**
 
