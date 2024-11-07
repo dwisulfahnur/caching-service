@@ -20,15 +20,8 @@ cp .env.example .env
 then adjust the db credentials in the .env file
 
 
-## Run with Docker
 
-Run this project with docker using the following command:
-
-```bash
-docker compose up -d
-```
-
-## Run on the local environment
+## Run App
 
 1. **Clone the Repository**:
 
@@ -39,6 +32,7 @@ cd caching-service
 
 2. **Install Dependencies: Use pip to install project dependencies.**
 
+Skip this step if you want to run the app using docker containerization.
 create python virtual environment and activate it, then install the requirements.
 
 ```bash
@@ -48,10 +42,21 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. **Run the Application: Start the FastAPI server.**
+3. **Run the Application**
 
+### Run the app using local env
+
+run the db first, then run the app using run.py
+ensure the DB_URL on the .env is pointing to your localhost (127.0.0.1)
 ```bash
+docker compose up -d db
 python run.py
+```
+
+### Run the app using docker
+ensure the DB_URL on the .env is pointing to the "db" as the host (db service name)
+```bash
+docker compose up -d
 ```
 
 The server should now be running at http://127.0.0.1:8000.
