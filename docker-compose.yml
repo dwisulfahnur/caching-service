@@ -1,0 +1,19 @@
+services:
+  api:
+    build: .
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    ports:
+      - 8000:8000
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data 
+    ports:
+      - "5432:5432"
