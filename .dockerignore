@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment directories
+env/
+venv/
+ENV/
+.venv/
+.ENV/
+
+# Python egg files
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Cache and log files
+*.log
+*.cache
+.cache/
+*.pid
+
+# Local SQLite database files (for testing)
+test_database.db
+
+# Environment files
+.env
+.env.*
+
+# IDE and editor settings
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Docker and other configuration files
+.dockerignore
+docker-compose.yml
+
+# Pytest and coverage files
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
