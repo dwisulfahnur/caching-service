@@ -59,4 +59,12 @@ ensure the DB_URL on the .env is pointing to the "db" as the host (db service na
 docker compose up -d
 ```
 
+## Test
+
+test the app
+
+```bash
+pytest
+```
+
 The server should now be running at http://127.0.0.1:8000.
