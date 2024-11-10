@@ -1,4 +1,4 @@
-import pytest
+from unittest.mock import patch, Mock
 from fastapi.testclient import TestClient
 
 def test_create_payload(client: TestClient):
@@ -22,18 +22,19 @@ def test_cached_payload(client: TestClient):
         "list_2": ["other string", "another string", "last string"]
     }
     response = client.post("/payload", json=payload)
-    data = response.json()
-    identifier = data["id"]
-
     assert response.status_code == 201
 
-    # post new payload with the same payload as the first
-    cached_response = client.post("/payload", json=payload)
-    cached_data = cached_response.json()
 
-    assert cached_response.status_code == 200
-    assert cached_data["id"] == identifier
-    assert cached_response.headers["X-Cached"] == "1"
+    mock_transformer_result = Mock()
+    with patch('src.services.transformer.transform_payload') as mock_transformer:
+        mock_transformer.return_value = mock_transformer_result
+
+        # post new payload with the same payload as the first
+        cached_response = client.post("/payload", json=payload)
+        assert cached_response.status_code == 200
+
+        # ensure the transform_payload function is not called because the payload identifier is already exists on database
+        mock_transformer.assert_not_called()
 
 
 def test_different_payloads(client: TestClient):
@@ -78,3 +79,13 @@ def test_retrieve_payload_not_found(client: TestClient):
 
     get_response = client.get(f"/payload/{identifier}")
     assert get_response.status_code == 404
+
+def test_different_list_length(client:TestClient):
+    response = client.post('/payload', json={
+        "list_1": ["first string", "second string", "third string"],
+        "list_2": ["other string", "another string", "last string", "other string"],
+    })
+
+    # json_response = response.json()
+    assert response.status_code == 422
+
